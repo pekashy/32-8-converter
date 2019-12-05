@@ -1,16 +1,17 @@
 #pragma once
+
 #include "to8converter.h"
 
 using std::vector;
 
-vector<uint8_t> to_utf8(const vector<uint32_t> &x){
+vector<uint8_t> to_utf8(const vector<uint32_t> &x) {
     vector<uint32_t>::const_iterator it = x.begin();
     vector<uint8_t> result;
-    for(; it != x.end(); it++){
-        uint32_t symb32= *it;
+    for (; it != x.end(); it++) {
+        uint32_t symb32 = *it;
         char bitpart[6];
         size_t bitsize = convert_to_8(bitpart, symb32);
-        for(int i = 0; i < bitsize; i++){
+        for (int i = 0; i < bitsize; i++) {
             result.push_back(bitpart[i]);
         }
     }
@@ -18,7 +19,7 @@ vector<uint8_t> to_utf8(const vector<uint32_t> &x){
 }
 
 
-size_t convert_to_8(char* bitpart, uint32_t symb32){
+size_t convert_to_8(char *bitpart, uint32_t symb32) {
     if (symb32 <= 0x7F) {
         bitpart[0] = symb32;
         return 1;
